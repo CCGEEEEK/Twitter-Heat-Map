@@ -80,7 +80,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 TEMPLATE_DIRS ={
-                 os.path.join(PROJECT_PATH,'Templates').replace('\\','/')}
+                 os.path.join(BASE_DIR,'mysite').replace('\\','/')}
 # Internationalization
 
 USE_I18N = True

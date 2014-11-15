@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(entry_resource.urls)),
-    url(r'^crawl/', 'mysite.views.crawl'),
+    url(r'^crawl/$', 'mysite.views.crawl'),
     url(r'^$', 'mysite.views.index'),
     )
 

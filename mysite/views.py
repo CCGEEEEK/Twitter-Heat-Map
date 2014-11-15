@@ -10,40 +10,29 @@ import tweepy
 import django.db as jdb
 from tweepy.utils import import_simplejson
 
-DB_NAME = 'twit'
-global kkwd;
-# def my_view(request):
-#     return render_to_response('index.html',locals(),context_instance = RequestContext(request))
 def index(request):
      #return HttpResponse('Templates/index.html',locals(),context_instance = RequestContext(request))
-      return render(request, 'index.html')
+      return render(request, 'static/index.html')
 
 def search_twitter(data, kkwd):   
-  #  js = data.readlines()
-#     js_object = data
-    
+
     #filter it all
-    print data
+#     print data
     tweets = []
     try:
             
-
             user = data.id
             tid = data.user.id
             geo = data.coordinates
             text = data.text
             ts = data.created_at 
             time = data.created_at#datetime.strptime(data.created_at,'%a %b %d %H:%M:%S +0000 %Y')
-#         cursor.close()
-#         con.close()
+
     except AttributeError:
         return
     
-#     thistweet = tweet(user,tid, text, geo, time, kwd)
-#     tweets.append(thistweet)
     if geo is not None and text is not None and tid is not None and time is not None and user is not None:
-
-        print 'haha'
+     
         try:
             p = Tweet(
                       user = data.id,
@@ -58,7 +47,6 @@ def search_twitter(data, kkwd):
         except jdb.OperationalError:
             return
  
-
 def crawl(request):
 
     CONSUMER_KEY = 'wfg76HPo6k56ItgdRCepxAvch'
@@ -66,9 +54,7 @@ def crawl(request):
     ACCESS_TOKEN_KEY = '43335008-tl7cFjjCOgEEukxlMBt1izBjKjKxrFIEfinonvohm'
     ACCESS_TOKEN_SECRET = 'YF3IZM5Xr7o8PkMZai6lHCTeNwbsEkWY7WrUUpQY3Iaxi'
     
-    kkwd='coffee'
-#     kkwd = request.GET['kwd']
-    
+    kkwd = request.GET.get('kwd');
     
     auth1 = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth1.set_access_token(ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET)
@@ -80,5 +66,5 @@ def crawl(request):
     for d in data:
         search_twitter(d, kkwd)
     
-    return HttpResponse('OK!')
+    return HttpResponse('Done!')
  
